@@ -5,6 +5,13 @@ MAINTAINER dooros@posgrado.upv.es
 
 VOLUME ["/data/db"]
 
+# install SSH 
+RUN apt-get update && apt-get -y install openssh-server supervisor
+RUN mkdir /var/run/sshd
+RUN echo 'root:root' |chpasswd
+RUN sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
+
 # Install MongoDB
 
 RUN \
@@ -20,6 +27,12 @@ RUN apt-get install --yes curl
 RUN curl --silent --location https://deb.nodesource.com/setup_8.x | sudo -E bash -
 RUN apt-get install --yes nodejs
 
-# run service of mongodb
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# Open the ports
+EXPOSE 22 3000 27017
+# run services
+#CMD ["/usr/sbin/sshd", "-D"]
+#ENTRYPOINT ["/usr/sbin/sshd", "-D"]
+#CMD ["mongod"]
+CMD ["/usr/bin/supervisord"]
 
-CMD ["mongod"]
