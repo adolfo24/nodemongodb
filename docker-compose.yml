@@ -1,0 +1,15 @@
+version: "2"
+services:
+  api:
+    image: dooros/nodemongodb
+    ports:
+      - "8080:8080"
+    volumes:
+      - ${PWD}:/home/
+    command: bash -c "node /home/app.js"
+  db:
+    image: dooros/nodemongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - /data/db:/data/db
