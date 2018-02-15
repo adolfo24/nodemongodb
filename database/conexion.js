@@ -1,7 +1,7 @@
 'use strict';
 const mongoose = require('mongoose');
 function conectar(callback) {
-	var uri = 'mongodb://proyect_db_1:27017/cms';
+	var uri = 'mongodb://proyect_db:27017/cms';
 	mongoose.Promise = global.Promise;
 	mongoose.connect(uri, {})
     .then((resp) =>{/*console.log("Conectado a la base de datos!");*/callback(resp);})
