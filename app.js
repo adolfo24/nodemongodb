@@ -54,7 +54,7 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-app.listen(3000, function() {
-    console.log('Ready on port 3000');
+app.listen(80, function() {
+    console.log('Ready on port 80');
 });
 module.exports = app;
