@@ -21,10 +21,11 @@ for i in "1" "2" "3"; do
     docker-machine scp -r `pwd` nodo-$i:/home/
 	docker-machine ssh nodo-$i "sudo mkdir -p /data/db/"
 	eval $(docker-machine env nodo-$i)
-    docker pull dooros/nodemongodb
-    docker pull dockersamples/visualizer
+    docker pull dooros/nodemongodb    
 done
 #ponemos en ejecucion nuestros servicios 
 eval $(docker-machine env nodo-1)
+docker pull dockersamples/visualizer
 docker stack deploy --compose-file docker-compose.yml proyect
 docker service ls
+docker-machine ls
